@@ -7,6 +7,12 @@ import xmlrpc.client
 class CobblerApi(object):
     """cobbler管理操作类"""
     def __init__(self, url, username, password):
+        """
+        构造函数
+        :param url: cobbler url
+        :param username: 用户名
+        :param password: 密码
+        """
         self.url = url
         self.username = username
         self.password = password
