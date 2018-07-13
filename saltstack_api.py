@@ -105,14 +105,14 @@ class SaltStackApi(object):
             exit('jid[%s]获取任务结果失败,%s' % (jid, str(e)))
 
 if __name__ == '__main__':
-    remote = SaltStackApi('https://192.168.222.51:8000/', 'saltapi', 'saltapi')
-    result1 = remote.salt_command(tgt='CentOS-01', fun='test.ping')
+    instance = SaltStackApi('https://192.168.222.51:8000/', 'saltapi', 'saltapi')
+    result1 = instance.salt_command(tgt='CentOS-01', fun='test.ping')
     print(result1)  # {'CentOS-01': True}
-    result2 = remote.salt_command(tgt='CentOS-01,test_system_01', fun='cmd.run', arg='uptime', expr_form='list')
+    result2 = instance.salt_command(tgt='CentOS-01,test_system_01', fun='cmd.run', arg='uptime', expr_form='list')
     print(result2)  # {'CentOS-01': ' 14:33:46 up 1 day, 12:32,  2 users,  load average: 0.38, 0.29, 0.26', 'test_system_01': ' 14:33:46 up  1:56,  2 users,  load average: 0.00, 0.02, 0.05'}
-    jid1 = remote.salt_async_command(tgt='CentOS-01,CentOS-02,test_system_01', fun='test.ping', expr_form='list')
-    result1 = remote.look_jid(jid=jid1)
+    jid1 = instance.salt_async_command(tgt='CentOS-01,CentOS-02,test_system_01', fun='test.ping', expr_form='list')
+    result1 = instance.look_jid(jid=jid1)
     print(result1)  # {'test_system_01': True, 'CentOS-01': True}
-    jid2 = remote.salt_async_command(tgt='CentOS-01,CentOS-02,test_system_01', fun='cmd.run', arg='uptime', expr_form='list')
-    result2 = remote.look_jid(jid=jid2)
+    jid2 = instance.salt_async_command(tgt='CentOS-01,CentOS-02,test_system_01', fun='cmd.run', arg='uptime', expr_form='list')
+    result2 = instance.look_jid(jid=jid2)
     print(result2)  # {'test_system_01': ' 14:33:03 up  1:55,  2 users,  load average: 0.00, 0.03, 0.05', 'CentOS-01': ' 14:33:03 up 1 day, 12:32,  2 users,  load average: 0.39, 0.27, 0.25'}
